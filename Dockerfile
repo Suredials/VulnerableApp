@@ -1,13 +1,11 @@
-# Injected into the vulnerableapp fork's root by `ctf-setup org` — vanilla
-# SasanLabs/VulnerableApp@2.1.37 ships no root Dockerfile, and the scorer builds
-# the app from the PR checkout.
-FROM eclipse-temurin:17-jdk AS build
+FROM eclipse-temurin:17-jdk-jammy AS build
 WORKDIR /src
 COPY . .
-RUN ./gradlew --no-daemon -x test -x spotlessCheck -x spotlessJavaCheck clean bootJar
+RUN ./gradlew --no-daemon bootJar
 
-FROM eclipse-temurin:17-jre
+FROM eclipse-temurin:17-jre-jammy
+RUN apt-get update && apt-get install -y --no-install-recommends iputils-ping && rm -rf /var/lib/apt/lists/*
 WORKDIR /app
-COPY --from=build /src/build/libs/VulnerableApp-*.jar /app/app.jar
+COPY --from=build /src/build/libs/VulnerableApp-1.0.0.jar /app/app.jar
 EXPOSE 9090
 ENTRYPOINT ["java", "-jar", "/app/app.jar"]
