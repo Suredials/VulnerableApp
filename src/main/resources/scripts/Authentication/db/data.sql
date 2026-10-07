@@ -2,7 +2,8 @@
 INSERT INTO auth_users VALUES (1, 'admin_sqli', '$2a$12$G.oa0oWm4zrDOYeMrgzT7.vSzVmcTjJgXIFhEZYh/RYAlsnPs6e5y', NULL, 'BCRYPT', 1, 'admin_sqli@example.com', 'ADMIN');
 
 -- Level 2: Adaptive password hashing; credentials are never logged.
-INSERT INTO auth_users VALUES (2, 'admin_logs', '$2a$12$hAQAVY2kJs0P32MzvuBjvu5.v/y.mpFSBFqtv802O/LPyYnKusoCi', NULL, 'BCRYPT', 2, 'admin_logs@example.com', 'ADMIN');
+-- The previously exposed password has been rotated; only its adaptive hash is retained.
+INSERT INTO auth_users VALUES (2, 'admin_logs', '$2a$12$hWisITUbfBffdJWymRTKsehJbdv17OxWeuekZIoI2rr4Nuu07uAfC', NULL, 'BCRYPT', 2, 'admin_logs@example.com', 'ADMIN');
 
 -- Level 3: Adaptive password hashing; no plaintext password is stored.
 INSERT INTO auth_users VALUES (3, 'admin_plain', '$2a$12$CMGRzG7KWvNHmpxvQOg/vubWvGKB.SzzIakdy73m/Vo6Fr6sNhu66', NULL, 'BCRYPT', 3, 'admin_plain@example.com', 'ADMIN');
